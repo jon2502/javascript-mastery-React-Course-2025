@@ -10,6 +10,10 @@ run application
 ```
 npm run dev
 ```
+## made with
+- React JS
+- JavaScript
+
 
 ## React + Vite
 
