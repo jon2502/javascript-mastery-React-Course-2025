@@ -10,9 +10,14 @@ run application
 ```
 npm run dev
 ```
+
+## env content
+- 
+
 ## made with
 - React JS
 - JavaScript
+
 
 
 ## React + Vite
