@@ -1,6 +1,3 @@
-# javascript mastery React Course 2025
- A React JS application built using JavaScript Mastery's React JS 19 Full Course 2025
-
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
