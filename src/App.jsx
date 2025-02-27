@@ -5,7 +5,7 @@ import './App.css'
 
 const Card = ({title}) => {
   return (
-  <div>
+  <div className="card">
     <h2>{title}</h2>
   </div>
   )
@@ -13,8 +13,7 @@ const Card = ({title}) => {
 
 const App = () => {
   return (
-    <div>
-      <h2>functional arrow function</h2>
+    <div className='card-container'>
       <Card title="Godzilla"/>
       <Card title="Pacific rim"/>
       <Card title="Gamera"/>
