@@ -12,7 +12,7 @@ const Card = ({title}) => {
 
   useEffect(()=>{
     console.log(`${title} has been liked: ${hasLiked}`)
-  });
+  }, [hasLiked]);
 
   return (
   <div className="card" onClick={() => setCount(count + 1)}>
