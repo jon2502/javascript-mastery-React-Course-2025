@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
-import { updateSearchCount } from './appwrite.js';
+import { updateSearchCount, getTrendingMovies } from './appwrite.js';
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_ACCESS_TOKEN;
@@ -19,10 +19,11 @@ const API_OPTIONS = {
 
 const App = () =>{
   const [searchTerm, setsearchTerm] = useState('');
-  const [errorMessage, seterrorMessage] = useState(null)
-  const [movieList, setmovieList] = useState([])
-  const [isLoading, setisLoading] = useState(false)
-  const [debouncedsearchTerm, setdebouncedsearchTerm] = useState('')
+  const [errorMessage, seterrorMessage] = useState(null);
+  const [movieList, setmovieList] = useState([]);
+  const [trendingMovies, settrendingMovies] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [debouncedsearchTerm, setdebouncedsearchTerm] = useState('');
 
   useDebounce(() => setdebouncedsearchTerm(searchTerm), 500, [searchTerm])
 
@@ -58,9 +59,22 @@ const App = () =>{
     }
   }
 
+  const loadTrendingMovies = async () =>{
+    try{
+      const movies = await getTrendingMovies();
+      settrendingMovies(movies)
+    }catch(error){
+      console.error(`Error fetching trending movies: ${error}`)
+    }
+  }
+
   useEffect(() =>{
     fetchmovies(debouncedsearchTerm);
   }, [debouncedsearchTerm])
+
+  useEffect(()=>{
+    loadTrendingMovies()
+  },[])
 
   return (
     <main>
@@ -71,8 +85,21 @@ const App = () =>{
           <h1>Find <span className='text-gradient'>Movies</span> you'll Enjoy Without the Hassle</h1>
           <Search searchTerm={searchTerm} setsearchTerm={setsearchTerm}/>
         </header>
+        {trendingMovies.length > 0 && (
+          <sectio className='trending'>
+              <h2>Trending movies</h2>
+              <ul>
+                {trendingMovies.map((movie, index)=>(
+                  <li key ={movie.$id}>
+                    <p>{index + 1}</p>
+                    <img src={movie.poster_url} alt={movie.title} />
+                  </li>
+                ))}
+              </ul>
+          </sectio>
+        )}
         <section className='all-movies'>
-          <h2 className='mt-[40px]'>All Movies</h2>
+          <h2>All Movies</h2>
           {isLoading ? (
             <Spinner/>
           ): errorMessage ? (
