@@ -12,7 +12,7 @@ npm run dev
 ```
 
 ## env content
-- 
+- VITE_API_ACCESS_TOKEN
 
 ## made with
 - React JS
