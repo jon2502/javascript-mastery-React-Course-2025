@@ -14,6 +14,7 @@ npm run dev
 ## made with
 - React JS
 - JavaScript
+- NPM
 - Appwrite
 - TMDB
 - TailwindCSS
