@@ -1,7 +1,7 @@
 import React from 'react'
 
 const MovieCard = ({movie: {
-    title, vote_average, poster_path, release_date,original_language
+    title, overview, vote_average, poster_path, release_date, original_language
 }}) =>{
   return (
     <div className='movie-card'>
@@ -9,7 +9,8 @@ const MovieCard = ({movie: {
             `https://image.tmdb.org/t/p/w500/${poster_path}`: './no-movie.png'}
             alt={title}
         />
-        <div className='mt-4'>
+        <span className='text-white'>{overview}</span>
+        <div className='mt-4 block'>
             <h3>{title}</h3>
             <div className='content'>
                 <div className='rating'>
