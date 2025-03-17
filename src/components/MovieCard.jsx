@@ -1,15 +1,21 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 
 const MovieCard = ({movie: {
     title, overview, vote_average, poster_path, release_date, original_language
 }}) =>{
+    const [imageHover, setimageHover] = useState(false);
   return (
     <div className='movie-card'>
         <img src={poster_path ?
             `https://image.tmdb.org/t/p/w500/${poster_path}`: './no-movie.png'}
             alt={title}
+            onMouseEnter={()=> setimageHover(true)}
+            onMouseLeave={()=> setimageHover(false)}
         />
-        <span className='text-white'>{overview}</span>
+        {imageHover && (
+            <span className='text-white'>{overview}</span>
+        )}
         <div className='mt-4 block'>
             <h3>{title}</h3>
             <div className='content'>

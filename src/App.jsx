@@ -24,7 +24,7 @@ const App = () =>{
   const [trendingMovies, settrendingMovies] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [debouncedsearchTerm, setdebouncedsearchTerm] = useState('');
-  const [imageHover, setimageHover] = useState(false);
+ 
 
   useDebounce(() => setdebouncedsearchTerm(searchTerm), 500, [searchTerm])
 
