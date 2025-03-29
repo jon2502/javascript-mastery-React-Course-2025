@@ -6,17 +6,6 @@ import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import { updateSearchCount, getTrendingMovies } from './appwrite.js';
 
-const API_BASE_URL = "https://api.themoviedb.org/3";
-const API_KEY = import.meta.env.VITE_TMDB_API_ACCESS_TOKEN;
-
-const API_OPTIONS = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${API_KEY}`
-  }
-}
-
 const App = () =>{
   const [searchTerm, setsearchTerm] = useState('');
   const [errorMessage, seterrorMessage] = useState(null);
@@ -34,9 +23,10 @@ const App = () =>{
     try{
       const endpoint = query
       ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
-      :`${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      :`http://localhost:3000/TMDB`;
 
-      const response = await fetch(endpoint, API_OPTIONS);
+      const response = await fetch(endpoint);
+      console.log(response)
       if(!response.ok){
         throw new Error('failed to fetch movies');
       }
@@ -104,7 +94,7 @@ const App = () =>{
           {isLoading ? (
             <Spinner/>
           ): errorMessage ? (
-            <p className='text-red500'>{errorMessage}</p>
+            <p className='text-red-500'>{errorMessage}</p>
           ): (
             <ul>
               {movieList.map((movie) =>(
