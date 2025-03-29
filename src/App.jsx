@@ -22,7 +22,7 @@ const App = () =>{
     seterrorMessage('')
     try{
       const endpoint = query
-      ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+      ? `http://localhost:3000/TMDB/${encodeURIComponent(query)}`
       :`http://localhost:3000/TMDB`;
 
       const response = await fetch(endpoint);
