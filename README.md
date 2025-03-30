@@ -15,8 +15,6 @@ npm run dev
 - React JS
 - JavaScript
 - NPM
-- Appwrite
-- TMDB
 - TailwindCSS
 
 ## changes from original version
