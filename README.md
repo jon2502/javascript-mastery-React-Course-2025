@@ -19,6 +19,11 @@ npm run dev
 - TMDB
 - TailwindCSS
 
+## changes from original version
+- # Added functions
+    - want to add more content to the site
+- # Changed functions
+    - Appwrite and TMDB integrations are being moved to a new backend applikation
 
 
 ## React + Vite
