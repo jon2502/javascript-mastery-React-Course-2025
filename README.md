@@ -16,12 +16,13 @@ npm run dev
 - JavaScript
 - NPM
 - TailwindCSS
+- API
 
 ## changes from original version
-- # Added functions
-    - want to add more content to the site
-- # Changed functions
-    - Appwrite and TMDB integrations are being moved to a new backend applikation
+# Added functions
+- want to add more content to the site
+# Changed functions
+- Appwrite and TMDB integrations are being moved to a new backend applikation
 
 
 ## React + Vite
