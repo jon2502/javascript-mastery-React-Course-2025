@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
-import { updateSearchCount, getTrendingMovies } from './appwrite.js';
+//import { updateSearchCount, getTrendingMovies } from './appwrite.js';
 
 const App = () =>{
   const [searchTerm, setsearchTerm] = useState('');
@@ -26,12 +26,10 @@ const App = () =>{
       :`http://localhost:3000/TMDB`;
 
       const response = await fetch(endpoint);
-      console.log(response)
       if(!response.ok){
         throw new Error('failed to fetch movies');
       }
       const data = await response.json()
-      console.log(data)
       if(data.Response == 'false'){
         seterrorMessage(data.Error || 'failed to fetch movies')
         setmovieList([])
@@ -39,7 +37,18 @@ const App = () =>{
       }
       setmovieList(data.results || [])
       if(query && data.results.length > 0){
-        await updateSearchCount(query, data.results[0]);
+        fetch("http://localhost:3000/Appwrite/postSearch",{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Title: data.results[0].title,
+            MovieID: data.results[0].id,
+            Poster: `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`,
+          })
+        })
+        
       }
       
     }catch(error) {
@@ -52,8 +61,9 @@ const App = () =>{
 
   const loadTrendingMovies = async () =>{
     try{
-      const movies = await getTrendingMovies();
-      settrendingMovies(movies)
+      const movies = await fetch("http://localhost:3000/Appwrite/popularMovies")
+      const data = await movies.json()
+      settrendingMovies(data.results)
     }catch(error){
       console.error(`Error fetching trending movies: ${error}`)
     }
@@ -81,9 +91,9 @@ const App = () =>{
               <h2>Trending movies</h2>
               <ul>
                 {trendingMovies.map((movie, index)=>(
-                  <li key ={movie.$id}>
+                  <li key ={movie.movie_ID}>
                     <p>{index + 1}</p>
-                    <img src={movie.poster_url} alt={movie.title} />
+                    <img src={movie.poster_URL} alt={movie.Title} />
                   </li>
                 ))}
               </ul>
