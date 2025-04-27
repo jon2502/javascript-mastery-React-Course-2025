@@ -22,8 +22,8 @@ const App = () =>{
     seterrorMessage('')
     try{
       const endpoint = query
-      ? `http://localhost:3000/TMDB/${encodeURIComponent(query)}`
-      :`http://localhost:3000/TMDB`;
+      ? `https://javascript-mastery-react-course-2025.onrender.com/TMDB/${encodeURIComponent(query)}`
+      :`https://javascript-mastery-react-course-2025.onrender.com/TMDB`;
 
       const response = await fetch(endpoint);
       if(!response.ok){
@@ -37,7 +37,7 @@ const App = () =>{
       }
       setmovieList(data.results || [])
       if(query && data.results.length > 0){
-        fetch("http://localhost:3000/Appwrite/postSearch",{
+        fetch("https://javascript-mastery-react-course-2025.onrender.com/Appwrite/postSearch",{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const App = () =>{
 
   const loadTrendingMovies = async () =>{
     try{
-      const movies = await fetch("http://localhost:3000/Appwrite/popularMovies")
+      const movies = await fetch("https://javascript-mastery-react-course-2025.onrender.com/Appwrite/popularMovies")
       const data = await movies.json()
       settrendingMovies(data.results)
     }catch(error){
