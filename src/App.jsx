@@ -30,6 +30,7 @@ const App = () =>{
         throw new Error('failed to fetch movies');
       }
       const data = await response.json()
+      console.log(data)
       if(data.Response == 'false'){
         seterrorMessage(data.Error || 'failed to fetch movies')
         setmovieList([])
