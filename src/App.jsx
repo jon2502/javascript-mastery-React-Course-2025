@@ -30,7 +30,6 @@ const App = () =>{
         throw new Error('failed to fetch movies');
       }
       const data = await response.json()
-      console.log(data)
       if(data.Response == 'false'){
         seterrorMessage(data.Error || 'failed to fetch movies')
         setmovieList([])
@@ -44,9 +43,9 @@ const App = () =>{
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            Title: /*data.results[0].title*/ 1,
-            MovieID: /*data.results[0].id*/ 'test',
-            Poster: /*`https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`*/ 'test',
+            Title: data.results[0].title,
+            MovieID: data.results[0].id,
+            Poster: `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`
           })
         })
         
