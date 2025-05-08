@@ -22,8 +22,7 @@ npm run dev
 # Added functions
 - want to add more content to the site
 # Changed functions
-- Appwrite and TMDB integrations are being moved to a new backend applikation
-
+- Appwrite and TMDB integrations have been moved to a separate express.js backend application
 
 ## React + Vite
 
