@@ -1,15 +1,8 @@
 # javascript mastery React Course 2025
  A React JS application built using JavaScript Mastery's React JS 19 Full Course 2025
 
-## Project setup
-install packages
-```
-npm install
-```
-run application
-```
-npm run dev
-```
+## link to backend code
+https://github.com/jon2502/javascript-mastery-React-Course-2025-Backend
 
 ## made with
 - React JS
@@ -19,11 +12,10 @@ npm run dev
 - API
 
 ## changes from original version
-# Added functions
+### changes i want to ad
 - want to add more content to the site
-# Changed functions
-- Appwrite and TMDB integrations are being moved to a new backend applikation
-
+### Changed functions
+- Appwrite and TMDB integrations have been moved to a separate express.js backend application 
 
 ## React + Vite
 
