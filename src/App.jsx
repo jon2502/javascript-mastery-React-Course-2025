@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
+import SelectedMovie from './components/SelectedMovie.jsx';
 //import { updateSearchCount, getTrendingMovies } from './appwrite.js';
 
 const App = () =>{
@@ -12,6 +13,7 @@ const App = () =>{
   const [movieList, setmovieList] = useState([]);
   const [trendingMovies, settrendingMovies] = useState([]);
   const [isLoading, setisLoading] = useState(false);
+  const [isSelectedMovie, setisSelectedMovie] = useState(false)
   const [debouncedsearchTerm, setdebouncedsearchTerm] = useState('');
  
 
@@ -80,7 +82,10 @@ const App = () =>{
   return (
     <main>
       <div className='pattern'/>
-      <div className='wrapper'>
+      {isSelectedMovie ? (
+        <SelectedMovie isSelectedMovie={isSelectedMovie}/>
+      ):
+        <div className='wrapper'>
         <header>
           <img src="./hero.png" alt="Hero Banner" />
           <h1>Find <span className='text-gradient'>Movies</span> you'll Enjoy Without the Hassle</h1>
@@ -108,13 +113,12 @@ const App = () =>{
           ): (
             <ul>
               {movieList.map((movie) =>(
-                <MovieCard key={movie.id} movie={movie}/>
+                <MovieCard key={movie.id} movie={movie} setisSelectedMovie={setisSelectedMovie}/>
               ))}
             </ul>
           )}
         </section>
-
-      </div>
+      </div>}
     </main>
   )
 }
