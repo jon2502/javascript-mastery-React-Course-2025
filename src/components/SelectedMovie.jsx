@@ -7,7 +7,10 @@ const SelectedMovie =({isMovieID, setisMovieID, Movie}) => {
             <h1 className='text-white'>SelectedMovie</h1>
             <button className='text-white' onClick={()=>setisMovieID(false)}>back</button>
             <p className='text-white'>{isMovieID}</p>
-            <div>
+            <div className="bg-cover bg-no-repeat"
+            style={
+                {backgroundImage: `url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces${Movie.backdrop_path})`}
+            }>
                 <img src={Movie.poster_path ?
                 `https://image.tmdb.org/t/p/w500/${Movie.poster_path}`: './no-movie.png'}
                 alt={Movie.title}/>
