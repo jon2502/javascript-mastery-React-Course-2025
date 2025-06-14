@@ -65,17 +65,16 @@ const App = () =>{
 
   const fetchSpecificMovie = async (isMovieID) =>{
     console.log(isMovieID)
-    if(isMovieID){
-      try{
-        const movie = await fetch(`https://javascript-mastery-react-course-2025.onrender.com/TMDB/Select/${isMovieID}`)
-        const data = await movie.json()
-        console.log(data)
-        setselectedMovie(data)
-      }catch(error){
-        console.error(`Error fetching movies: ${error}`)
-        seterrorMessage('Error fetching movies. please try again later')
-      }
-    }
+    if(!isMovieID) return
+    try{
+      const movie = await fetch(`https://javascript-mastery-react-course-2025.onrender.com/TMDB/Select/${isMovieID}`)
+      const data = await movie.json()
+      setselectedMovie(data)
+    }catch(error){
+      console.error(`Error fetching movies: ${error}`)
+      seterrorMessage('Error fetching movies. please try again later')
+    
+  }
   }
 
   const loadTrendingMovies = async () =>{
@@ -103,8 +102,8 @@ const App = () =>{
   return (
     <main>
       <div className='pattern'/>
-      {isMovieID ? (
-        <SelectedMovie isMovieID={isMovieID} setisMovieID={setisMovieID} Movie={selectedMovie}/>
+      {selectedMovie ? (
+        <SelectedMovie isMovieID={isMovieID} setisMovieID={setisMovieID} Movie={selectedMovie} setselectedMovie={setselectedMovie}/>
       ):
         <div className='wrapper'>
         <header>
