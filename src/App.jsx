@@ -5,15 +5,17 @@ import Search from './components/Search.jsx'
 import Spinner from './components/Spinner.jsx';
 import MovieCard from './components/MovieCard.jsx';
 import SelectedMovie from './components/SelectedMovie.jsx';
-//import { updateSearchCount, getTrendingMovies } from './appwrite.js';
 
 const App = () =>{
+  //useState hook allows for the tracking of states in a function component.
+  // it includes a the curent state a function for changing the state and a base state that it starts out with
   const [searchTerm, setsearchTerm] = useState('');
   const [errorMessage, seterrorMessage] = useState(null);
   const [movieList, setmovieList] = useState([]);
   const [trendingMovies, settrendingMovies] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-  const [isSelectedMovie, setisSelectedMovie] = useState(false)
+  const [isMovieID, setisMovieID] = useState(false)
+  const [selectedMovie, setselectedMovie] = useState(false)
   const [debouncedsearchTerm, setdebouncedsearchTerm] = useState('');
  
 
@@ -24,7 +26,7 @@ const App = () =>{
     seterrorMessage('')
     try{
       const endpoint = query
-      ? `https://javascript-mastery-react-course-2025.onrender.com/TMDB/${encodeURIComponent(query)}`
+      ? `https://javascript-mastery-react-course-2025.onrender.com/TMDB/Search/${encodeURIComponent(query)}`
       :`https://javascript-mastery-react-course-2025.onrender.com/TMDB`;
 
       const response = await fetch(endpoint);
@@ -38,7 +40,7 @@ const App = () =>{
         return;
       }
       setmovieList(data.results || [])
-      if(query && data.results.length > 0){
+      /*if(query && data.results.length > 0){
         fetch("https://javascript-mastery-react-course-2025.onrender.com/Appwrite/postSearch",{
           method: 'POST',
           headers: {
@@ -51,13 +53,28 @@ const App = () =>{
           })
         })
         
-      }
+      }*/
       
     }catch(error) {
       console.error(`Error fetching movies: ${error}`)
       seterrorMessage('Error fetching movies. please try again later')
     } finally {
       setisLoading(false)
+    }
+  }
+
+  const fetchSpecificMovie = async (isMovieID) =>{
+    console.log(isMovieID)
+    if(isMovieID){
+      try{
+        const movie = await fetch(`https://javascript-mastery-react-course-2025.onrender.com/TMDB/Select/${isMovieID}`)
+        const data = await movie.json()
+        console.log(data)
+        setselectedMovie(data)
+      }catch(error){
+        console.error(`Error fetching movies: ${error}`)
+        seterrorMessage('Error fetching movies. please try again later')
+      }
     }
   }
 
@@ -76,14 +93,18 @@ const App = () =>{
   }, [debouncedsearchTerm])
 
   useEffect(()=>{
+    fetchSpecificMovie(isMovieID);
+  },[isMovieID])
+
+  useEffect(()=>{
     loadTrendingMovies()
   },[])
 
   return (
     <main>
       <div className='pattern'/>
-      {isSelectedMovie ? (
-        <SelectedMovie isSelectedMovie={isSelectedMovie}/>
+      {isMovieID ? (
+        <SelectedMovie isMovieID={isMovieID} setisMovieID={setisMovieID} Movie={selectedMovie}/>
       ):
         <div className='wrapper'>
         <header>
@@ -92,7 +113,7 @@ const App = () =>{
           <Search searchTerm={searchTerm} setsearchTerm={setsearchTerm}/>
         </header>
         {trendingMovies.length > 0 && (
-          <sectio className='trending'>
+          <section className='trending'>
               <h2>Trending movies</h2>
               <ul>
                 {trendingMovies.map((movie, index)=>(
@@ -102,7 +123,7 @@ const App = () =>{
                   </li>
                 ))}
               </ul>
-          </sectio>
+          </section>
         )}
         <section className='all-movies'>
           <h2>All Movies</h2>
@@ -113,7 +134,7 @@ const App = () =>{
           ): (
             <ul>
               {movieList.map((movie) =>(
-                <MovieCard key={movie.id} movie={movie} setisSelectedMovie={setisSelectedMovie}/>
+                <MovieCard key={movie.id} movie={movie} setisMovieID={setisMovieID}/>
               ))}
             </ul>
           )}
