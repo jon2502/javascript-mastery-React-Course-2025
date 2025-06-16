@@ -27,9 +27,10 @@ const SelectedMovie =({isMovieID, setisMovieID, Movie, setselectedMovie}) => {
                 <div className=''>
                     <h2>{Movie.title} ({Movie.release_date ? Movie.release_date.split('-')[0] : 'N/A'})</h2>
                     <p>{Movie.release_date} ({Movie.origin_country[0]})</p>
-                    <span>{Movie.genres.map((genre)=>(<a>{genre.name}, </a>))}</span> 
+                    <span>{Movie.genres.map((genre)=>(<a key={genre.name}>{genre.name}, </a>))}</span> 
                     <p>{HouresandMinutes(Movie.runtime)}</p>
                 </div>
+                <h2>overview</h2>
                 <p>{Movie.overview}</p>
             </div>
         </div>
