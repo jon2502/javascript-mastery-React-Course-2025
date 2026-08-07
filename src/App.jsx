@@ -40,21 +40,6 @@ const App = () =>{
         return;
       }
       setmovieList(data.results || [])
-      /*if(query && data.results.length > 0){
-        fetch("https://javascript-mastery-react-course-2025.onrender.com/Appwrite/postSearch",{
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            Title: data.results[0].title,
-            MovieID: data.results[0].id,
-            Poster: `https://image.tmdb.org/t/p/w500${data.results[0].poster_path}`
-          })
-        })
-        
-      }*/
-      
     }catch(error) {
       console.error(`Error fetching movies: ${error}`)
       seterrorMessage('Error fetching movies. please try again later')
@@ -69,6 +54,17 @@ const App = () =>{
     try{
       const movie = await fetch(`https://javascript-mastery-react-course-2025.onrender.com/TMDB/Select/${isMovieID}`)
       const data = await movie.json()
+      await fetch("https://javascript-mastery-react-course-2025.onrender.com/Appwrite/postSearch",{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            Title: data.title,
+            MovieID: data.id,
+            Poster: `https://image.tmdb.org/t/p/w500${data.poster_path}`
+          })
+        })
       setselectedMovie(data)
     }catch(error){
       console.error(`Error fetching movies: ${error}`)
